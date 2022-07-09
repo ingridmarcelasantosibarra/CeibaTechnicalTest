@@ -1,13 +1,13 @@
 package com.ingridsantos.ceibatechnicaltest.data.endpoints
 
 import com.ingridsantos.ceibatechnicaltest.data.models.PostsDTO
-import retrofit2.http.POST
+import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface PostsUserApi {
 
-    @POST("/posts")
+    @GET("/posts")
     suspend fun getPosts(
-        @Query("userId") userId: Int,
+        @Query("userId") userId: Int
     ): List<PostsDTO>
 }

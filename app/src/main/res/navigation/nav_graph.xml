@@ -16,9 +16,12 @@
     </fragment>
     <fragment
         android:id="@+id/postFragment"
-        android:name="com.ingridsantos.ceibatechnicaltest.PostsFragment"
+        android:name="com.ingridsantos.ceibatechnicaltest.presentation.users.fragment.PostsFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_posts">
+        <argument
+            android:name="userId"
+            app:argType="integer" />
     </fragment>
 
 </navigation>

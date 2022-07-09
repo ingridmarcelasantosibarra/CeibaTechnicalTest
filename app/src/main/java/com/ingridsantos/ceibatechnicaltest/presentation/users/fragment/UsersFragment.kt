@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ingridsantos.ceibatechnicaltest.databinding.FragmentUsersBinding
 import com.ingridsantos.ceibatechnicaltest.presentation.users.adapter.UsersAdapter
@@ -46,7 +47,8 @@ class UsersFragment : ScopeFragment() {
     }
 
     private fun setUpAdapter() {
-        binding.rcvUsers.apply { layoutManager = LinearLayoutManager(context)
+        binding.rcvUsers.apply {
+            layoutManager = LinearLayoutManager(context)
             adapter = usersAdapter
         }
     }
@@ -69,7 +71,10 @@ class UsersFragment : ScopeFragment() {
     }
 
     private fun showPost(userId: Int) {
-        //val action = Usersf
+        val action = UsersFragmentDirections.actionUserFragmentToPostFragment(
+            userId
+        )
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {

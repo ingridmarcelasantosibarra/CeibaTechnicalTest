@@ -1,4 +1,4 @@
-package com.ingridsantos.ceibatechnicaltest.presentation.posts.state
+package com.ingridsantos.ceibatechnicaltest.presentation.users.state
 
 import com.ingridsantos.ceibatechnicaltest.domain.entities.Post
 

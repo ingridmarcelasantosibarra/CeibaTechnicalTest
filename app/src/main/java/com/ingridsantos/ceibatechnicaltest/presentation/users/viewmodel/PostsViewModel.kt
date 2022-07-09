@@ -1,9 +1,9 @@
-package com.ingridsantos.ceibatechnicaltest.presentation.posts.viewmodel
+package com.ingridsantos.ceibatechnicaltest.presentation.users.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ingridsantos.ceibatechnicaltest.domain.usecases.PostsUC
-import com.ingridsantos.ceibatechnicaltest.presentation.posts.state.PostsState
+import com.ingridsantos.ceibatechnicaltest.presentation.users.state.PostsState
 import com.ingridsantos.ceibatechnicaltest.utils.handleViewModelExceptions
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
