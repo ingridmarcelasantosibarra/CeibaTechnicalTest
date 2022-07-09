@@ -2,7 +2,7 @@ package com.ingridsantos.ceibatechnicaltest.presentation.posts.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ingridsantos.ceibatechnicaltest.data.repositories.usecases.PostsUC
+import com.ingridsantos.ceibatechnicaltest.domain.usecases.PostsUC
 import com.ingridsantos.ceibatechnicaltest.presentation.posts.state.PostsState
 import com.ingridsantos.ceibatechnicaltest.utils.handleViewModelExceptions
 import kotlinx.coroutines.flow.MutableStateFlow

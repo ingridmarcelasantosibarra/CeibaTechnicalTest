@@ -1,4 +1,4 @@
-package com.ingridsantos.ceibatechnicaltest.data.repositories.usecases
+package com.ingridsantos.ceibatechnicaltest.domain.usecases
 
 import com.ingridsantos.ceibatechnicaltest.domain.repositories.PostsUserRepository
 

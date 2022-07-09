@@ -2,7 +2,7 @@ package com.ingridsantos.ceibatechnicaltest.data.repositories
 
 import com.ingridsantos.ceibatechnicaltest.data.endpoints.PostsUserApi
 import com.ingridsantos.ceibatechnicaltest.data.models.PostsDTO
-import com.ingridsantos.ceibatechnicaltest.domain.entities.Posts
+import com.ingridsantos.ceibatechnicaltest.domain.entities.Post
 import com.ingridsantos.ceibatechnicaltest.domain.repositories.DomainExceptionRepository
 import com.ingridsantos.ceibatechnicaltest.domain.repositories.PostsUserRepository
 import com.ingridsantos.ceibatechnicaltest.utils.Mapper
@@ -12,14 +12,14 @@ import kotlinx.coroutines.flow.flow
 
 class PostsUserRepositoryImpl(
     private val postsUserApi: PostsUserApi,
-    private val mapPosts: Mapper<PostsDTO, Posts>,
+    private val mapPost: Mapper<PostsDTO, Post>,
     private val domainExceptionRepository: DomainExceptionRepository
 ) : PostsUserRepository {
 
-    override fun getPosts(userId: Int): Flow<List<Posts>> {
+    override fun getPosts(userId: Int): Flow<List<Post>> {
         return flow {
             val posts = postsUserApi.getPosts(userId).map {
-                mapPosts(it)
+                mapPost(it)
             }
             emit(posts)
         }.catch {
