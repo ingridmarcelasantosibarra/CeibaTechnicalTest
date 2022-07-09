@@ -1,6 +1,7 @@
 package com.ingridsantos.ceibatechnicaltest.application
 
 import android.app.Application
+import com.ingridsantos.ceibatechnicaltest.presentation.di.localStorageModule
 import com.ingridsantos.ceibatechnicaltest.presentation.di.postsModule
 import com.ingridsantos.ceibatechnicaltest.presentation.di.usersModule
 import org.koin.android.ext.koin.androidContext
@@ -19,7 +20,8 @@ class App : Application() {
             modules(
                 listOf(
                     usersModule,
-                    postsModule
+                    postsModule,
+                    localStorageModule
                 )
             )
         }

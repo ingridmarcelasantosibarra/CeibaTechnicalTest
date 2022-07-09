@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ingridsantos.ceibatechnicaltest.databinding.FragmentUsersBinding
 import com.ingridsantos.ceibatechnicaltest.presentation.users.adapter.UsersAdapter
+import com.ingridsantos.ceibatechnicaltest.presentation.users.state.LocalUsersState
 import com.ingridsantos.ceibatechnicaltest.presentation.users.state.UsersState
 import com.ingridsantos.ceibatechnicaltest.presentation.users.viewmodel.UsersViewModel
 import kotlinx.coroutines.Job
@@ -34,11 +35,9 @@ class UsersFragment : ScopeFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        usersViewModel.getUsers()
+        usersViewModel.getLocalUsers()
         setUpAdapter()
-        /*binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-        }*/
+        setupObservers()
     }
 
     override fun onResume() {
@@ -59,6 +58,17 @@ class UsersFragment : ScopeFragment() {
         }
     }
 
+    private fun setupObservers() {
+        usersViewModel.localUserState.observe(viewLifecycleOwner) {
+            when (it) {
+                LocalUsersState.EmptyUsers -> {
+                    usersViewModel.getUsers()
+                }
+                is LocalUsersState.SuccessUsers -> usersAdapter.submitList(it.users)
+            }
+        }
+    }
+
     private fun handleUsersState(usersState: UsersState) {
         when (usersState) {
             UsersState.HideLoading -> binding.pgbUsers.visibility = View.GONE
@@ -67,6 +77,9 @@ class UsersFragment : ScopeFragment() {
                 usersAdapter.submitList(usersState.users)
             }
             is UsersState.Error -> {}
+            is UsersState.EmptyUsers -> {
+
+            }
         }
     }
 

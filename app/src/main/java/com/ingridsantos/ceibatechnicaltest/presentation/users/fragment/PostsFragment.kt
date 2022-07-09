@@ -8,6 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ingridsantos.ceibatechnicaltest.databinding.FragmentPostsBinding
 import com.ingridsantos.ceibatechnicaltest.presentation.users.adapter.PostAdapter
+import com.ingridsantos.ceibatechnicaltest.presentation.users.state.InfoUserState
 import com.ingridsantos.ceibatechnicaltest.presentation.users.state.PostsState
 import com.ingridsantos.ceibatechnicaltest.presentation.users.viewmodel.PostsViewModel
 import kotlinx.coroutines.Job
@@ -39,6 +40,7 @@ class PostsFragment : ScopeFragment() {
         }
         postsViewModel.getPosts(userId)
         setUpAdapter()
+        observerInfoUser()
     }
 
     override fun onResume() {
@@ -58,8 +60,21 @@ class PostsFragment : ScopeFragment() {
             PostsState.Loading -> binding.pgbPosts.visibility = View.VISIBLE
             is PostsState.Success -> {
                 postAdapter.submitList(postState.posts)
+                postsViewModel.getUser(userId)
             }
             is PostsState.Error -> {
+            }
+        }
+    }
+
+    private fun observerInfoUser() {
+        postsViewModel.infoUserState.observe(viewLifecycleOwner) {
+            if (it is InfoUserState.SuccessUser) {
+                with(binding) {
+                    txvPhonePost.text = it.user.phone
+                    txvEmailPost.text = it.user.email
+                    txvUsernamePost.text = it.user.username
+                }
             }
         }
     }

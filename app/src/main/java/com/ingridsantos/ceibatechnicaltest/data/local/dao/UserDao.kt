@@ -15,4 +15,7 @@ interface UserDao {
 
     @Query("SELECT * FROM user")
     fun getUsers(): Flow<List<LocalUser>>
+
+    @Query("SELECT * FROM user WHERE id = :userId")
+    fun getInfoUser(userId: Int): Flow<LocalUser>
 }

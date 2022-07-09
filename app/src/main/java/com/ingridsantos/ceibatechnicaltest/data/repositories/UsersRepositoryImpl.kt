@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 
-class UserRepositoryImpl(
+class UsersRepositoryImpl(
     private val userApi: UsersApi,
     private val mapUser: Mapper<UserDTO, User>,
     private val domainExceptionRepository: DomainExceptionRepository

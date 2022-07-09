@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.map
 class LocalUsersRepositoryImpl(
     private val technicalTestRoomDatabase: TechnicalTestRoomDatabase,
     private val mapToLocalUser: Mapper<List<User>, List<LocalUser>>,
-    private val mapToUser: Mapper<List<LocalUser>, List<User>>
+    private val mapToUsers: Mapper<List<LocalUser>, List<User>>
 ) : LocalUsersRepository {
 
     override suspend fun insertAll(users: List<User>): List<Long> {
@@ -20,7 +20,7 @@ class LocalUsersRepositoryImpl(
 
     override fun getUsers(): Flow<List<User>> {
         return technicalTestRoomDatabase.userDao().getUsers().map {
-            mapToUser(it)
+            mapToUsers(it)
         }
     }
 }

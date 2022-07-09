@@ -14,7 +14,6 @@ import com.ingridsantos.ceibatechnicaltest.data.local.entities.LocalUser
     version = 1,
     exportSchema = false
 )
-
 abstract class TechnicalTestRoomDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao

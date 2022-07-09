@@ -39,8 +39,19 @@ val mapToLocalUser: Mapper<List<User>, List<LocalUser>> = { input ->
     returnList
 }
 
-val mapToUser: Mapper<UserDTO, User> = { userDTO ->
+val mapUserDTOToUser: Mapper<UserDTO, User> = { userDTO ->
     with(userDTO) {
+        User(
+            id = id,
+            email = email,
+            phone = phone,
+            username = username
+        )
+    }
+}
+
+val mapToUser: Mapper<LocalUser, User> = { localUser ->
+    with(localUser) {
         User(
             id = id,
             email = email,
