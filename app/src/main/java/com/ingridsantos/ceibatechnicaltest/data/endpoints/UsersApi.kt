@@ -6,5 +6,5 @@ import retrofit2.http.GET
 interface UsersApi {
 
     @GET("/users")
-    suspend fun getUsers(): UserDTO
+    suspend fun getUsers(): List<UserDTO>
 }

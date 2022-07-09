@@ -10,5 +10,5 @@ data class UserDTO(
     @Json(name = "email")
     val email: String,
     @Json(name = "phone")
-    val phone: String,
+    val phone: String
 )
