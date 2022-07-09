@@ -30,7 +30,7 @@ class PostsViewModel(
                     _postsFlow.value = PostsState.HideLoading
                 }
                 .handleViewModelExceptions { domainException ->
-                    PostsState.Error(domainException.message)
+                    _postsFlow.value = PostsState.Error(domainException.message)
                 }
                 .collect {
                     _postsFlow.value = PostsState.Success(it)

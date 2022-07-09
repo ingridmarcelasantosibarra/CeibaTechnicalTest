@@ -1,10 +1,11 @@
 package com.ingridsantos.ceibatechnicaltest.data.mappers
 
 import com.ingridsantos.ceibatechnicaltest.data.local.entities.LocalUser
+import com.ingridsantos.ceibatechnicaltest.data.models.UserDTO
 import com.ingridsantos.ceibatechnicaltest.domain.entities.User
 import com.ingridsantos.ceibatechnicaltest.utils.Mapper
 
-val mapToUser: Mapper<List<LocalUser>, List<User>> = { input ->
+val mapLocalUserToUser: Mapper<List<LocalUser>, List<User>> = { input ->
     val returnList: MutableList<User> = mutableListOf()
     input.forEach { localUser ->
         with(localUser) {
@@ -36,4 +37,15 @@ val mapToLocalUser: Mapper<List<User>, List<LocalUser>> = { input ->
         }
     }
     returnList
+}
+
+val mapToUser: Mapper<UserDTO, User> = { userDTO ->
+    with(userDTO) {
+        User(
+            id = id,
+            email = email,
+            phone = phone,
+            username = username
+        )
+    }
 }
