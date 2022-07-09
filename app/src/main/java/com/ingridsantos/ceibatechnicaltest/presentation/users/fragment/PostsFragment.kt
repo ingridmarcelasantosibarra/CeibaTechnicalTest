@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ingridsantos.ceibatechnicaltest.databinding.FragmentPostsBinding
 import com.ingridsantos.ceibatechnicaltest.presentation.users.adapter.PostAdapter
@@ -41,6 +42,13 @@ class PostsFragment : ScopeFragment() {
         postsViewModel.getPosts(userId)
         setUpAdapter()
         observerInfoUser()
+        setListeners()
+    }
+
+    private fun setListeners() {
+        binding.tbPosts.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     override fun onResume() {

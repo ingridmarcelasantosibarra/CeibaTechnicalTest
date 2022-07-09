@@ -72,13 +72,20 @@ class UsersFragment : ScopeFragment() {
     private fun handleUsersState(usersState: UsersState) {
         when (usersState) {
             UsersState.HideLoading -> binding.pgbUsers.visibility = View.GONE
-            UsersState.Loading -> binding.pgbUsers.visibility = View.VISIBLE
+            UsersState.Loading -> {
+                binding.incEmptyList.root.visibility = View.GONE
+                binding.pgbUsers.visibility = View.VISIBLE
+            }
             is UsersState.Success -> {
+                binding.incEmptyList.root.visibility = View.GONE
                 usersAdapter.submitList(usersState.users)
             }
-            is UsersState.Error -> {}
+            is UsersState.Error -> {
+                binding.incEmptyList.root.visibility = View.GONE
+            }
             is UsersState.EmptyUsers -> {
-
+                binding.cnlInfoUsers.visibility = View.GONE
+                binding.incEmptyList.root.visibility = View.VISIBLE
             }
         }
     }

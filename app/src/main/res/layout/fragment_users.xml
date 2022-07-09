@@ -9,51 +9,71 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/apbUsers"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.CeibaTechnicalTest.AppBarOverlay">
+        android:theme="@style/Theme.CeibaTechnicalTest.AppBarOverlay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/tbUser"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.CeibaTechnicalTest.PopupOverlay" />
+            app:popupTheme="@style/Theme.CeibaTechnicalTest.PopupOverlay"
+            app:title="@string/toolbar.title_technical_test" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/scvFindUser"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:queryHint="@string/title_find_user"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/apbUsers"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcvUsers"
-        android:layout_marginTop="@dimen/size_16dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cnlInfoUsers"
         android:layout_width="@dimen/size_0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:itemCount="5"
-        tools:listitem="@layout/item_user"
-        app:layout_constraintTop_toBottomOf="@+id/scvFindUser"
+        android:layout_height="@dimen/size_0dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_height="@dimen/size_0dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/apbUsers">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/scvFindUser"
+            app:iconifiedByDefault="false"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:queryHint="@string/title_find_user" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvUsers"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="@dimen/size_0dp"
+            android:layout_marginTop="@dimen/size_16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scvFindUser"
+            tools:itemCount="5"
+            tools:listitem="@layout/item_user" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <ProgressBar
         android:id="@+id/pgbUsers"
         android:layout_width="wrap_content"
-        android:visibility="gone"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/incEmptyList"
+        layout="@layout/layout_empty_list"
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
