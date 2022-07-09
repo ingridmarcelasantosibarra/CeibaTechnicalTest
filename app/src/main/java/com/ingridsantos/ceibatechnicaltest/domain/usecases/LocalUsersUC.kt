@@ -10,4 +10,6 @@ class LocalUsersUC(
     fun getUsers() = localUsersRepository.getUsers()
 
     suspend fun insertAll(users: List<User>) = localUsersRepository.insertAll(users)
+
+    suspend fun deleteAll() = localUsersRepository.deleteAll()
 }

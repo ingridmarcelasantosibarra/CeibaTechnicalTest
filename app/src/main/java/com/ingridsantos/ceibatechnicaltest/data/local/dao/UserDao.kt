@@ -18,4 +18,7 @@ interface UserDao {
 
     @Query("SELECT * FROM user WHERE id = :userId")
     fun getInfoUser(userId: Int): Flow<LocalUser>
+
+    @Query("DELETE FROM user")
+    suspend fun deleteAll(): Int
 }

@@ -44,7 +44,7 @@ class UsersViewModel(
                 .collect {
                     if (it.isEmpty()) {
                         _usersFlow.value = UsersState.EmptyUsers
-                        // TODO: clear
+                        localUsersUC.deleteAll()
                     } else {
                         _usersFlow.value = UsersState.Success(it)
                         localUsersUC.insertAll(it)

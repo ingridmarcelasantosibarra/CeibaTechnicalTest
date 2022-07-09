@@ -18,6 +18,9 @@ class LocalUsersRepositoryImpl(
         return technicalTestRoomDatabase.userDao().insertAll(mapToLocalUser(users))
     }
 
+    override suspend fun deleteAll() =
+        technicalTestRoomDatabase.userDao().deleteAll()
+
     override fun getUsers(): Flow<List<User>> {
         return technicalTestRoomDatabase.userDao().getUsers().map {
             mapToUsers(it)
