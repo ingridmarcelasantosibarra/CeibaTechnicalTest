@@ -5,11 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.ingridsantos.ceibatechnicaltest.data.local.dao.UserDao
-import com.ingridsantos.ceibatechnicaltest.data.local.entities.User
+import com.ingridsantos.ceibatechnicaltest.data.local.entities.LocalUser
 
 @Database(
     entities = [
-        User::class
+        LocalUser::class
     ],
     version = 1,
     exportSchema = false
