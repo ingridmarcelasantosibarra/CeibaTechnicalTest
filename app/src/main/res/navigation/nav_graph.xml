@@ -3,26 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/userFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.ingridsantos.ceibatechnicaltest.presentation.users.UsersFragment"
+        android:id="@+id/userFragment"
+        android:name="com.ingridsantos.ceibatechnicaltest.presentation.users.fragment.UsersFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_users">
-
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_UserFragment_to_PostFragment"
+            app:destination="@id/postFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
+        android:id="@+id/postFragment"
         android:name="com.ingridsantos.ceibatechnicaltest.PostsFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_posts">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
     </fragment>
+
 </navigation>

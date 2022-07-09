@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ingridsantos.ceibatechnicaltest.databinding.FragmentUsersBinding
@@ -12,10 +11,10 @@ import com.ingridsantos.ceibatechnicaltest.presentation.users.adapter.UsersAdapt
 import com.ingridsantos.ceibatechnicaltest.presentation.users.state.UsersState
 import com.ingridsantos.ceibatechnicaltest.presentation.users.viewmodel.UsersViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collect
+import org.koin.androidx.scope.ScopeFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class UsersFragment : Fragment() {
+class UsersFragment : ScopeFragment() {
 
     private var _binding: FragmentUsersBinding? = null
     private val binding get() = _binding!!
