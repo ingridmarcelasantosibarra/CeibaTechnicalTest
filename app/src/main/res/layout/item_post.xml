@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="@dimen/size_4dp"
+    android:layout_marginHorizontal="@dimen/size_8dp"
+    android:layout_marginBottom="@dimen/size_8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:padding="@dimen/size_8dp"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txvTitlePost"
+            android:textColor="@color/green_10"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_16sp"
+            android:layout_width="@dimen/size_0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="wrap_content"
+            tools:text="sunt aut facere repellat provident occaecati"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txvBodyPost"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_marginTop="@dimen/size_8dp"
+            style="@style/TextBlack14"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txvTitlePost"
+            tools:text="quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit"
+            android:layout_height="wrap_content" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>

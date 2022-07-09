@@ -17,9 +17,9 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.ingridsantos.ceibatechnicaltest.SecondFragment"
+        android:name="com.ingridsantos.ceibatechnicaltest.PostsFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_posts">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
