@@ -66,4 +66,9 @@ dependencies {
     kapt 'androidx.room:room-compiler:2.4.2'
     implementation 'androidx.room:room-ktx:2.4.2'
 
+    // Koin
+    implementation 'io.insert-koin:koin-core:2.2.3'
+    implementation 'io.insert-koin:koin-android:3.1.5'
+    implementation 'io.insert-koin:koin-android-viewmodel:2.2.3'
+
 }
