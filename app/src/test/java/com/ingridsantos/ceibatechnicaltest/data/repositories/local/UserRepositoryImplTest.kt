@@ -1,7 +1,5 @@
 package com.ingridsantos.ceibatechnicaltest.data.repositories.local
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.ingridsantos.ceibatechnicaltest.core.CoroutinesTestRule
 import com.ingridsantos.ceibatechnicaltest.data.local.TechnicalTestRoomDatabase
 import com.ingridsantos.ceibatechnicaltest.data.local.dao.UserDao
 import com.ingridsantos.ceibatechnicaltest.data.local.entities.LocalUser
@@ -15,17 +13,9 @@ import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.TestRule
 
 class UserRepositoryImplTest {
-
-    @get:Rule
-    var rule: TestRule = InstantTaskExecutorRule()
-
-    @get:Rule
-    var coroutinesTestRule = CoroutinesTestRule()
 
     private val technicalTestRoomDatabase = mockk<TechnicalTestRoomDatabase>()
     private val mapToUser = mockk<Mapper<LocalUser, User>>()
