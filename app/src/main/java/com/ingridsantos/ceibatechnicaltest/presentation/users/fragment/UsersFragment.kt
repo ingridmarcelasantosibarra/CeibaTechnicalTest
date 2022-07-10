@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ingridsantos.ceibatechnicaltest.databinding.FragmentUsersBinding
@@ -15,8 +13,6 @@ import com.ingridsantos.ceibatechnicaltest.presentation.users.state.LocalUsersSt
 import com.ingridsantos.ceibatechnicaltest.presentation.users.state.UsersState
 import com.ingridsantos.ceibatechnicaltest.presentation.users.viewmodel.FilterUsersViewModel
 import com.ingridsantos.ceibatechnicaltest.presentation.users.viewmodel.UsersViewModel
-import kotlinx.android.synthetic.main.fragment_users.*
-import kotlinx.coroutines.Job
 import org.koin.androidx.scope.ScopeFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -27,7 +23,6 @@ class UsersFragment : ScopeFragment() {
     private val usersViewModel: UsersViewModel by viewModel()
     private val filterUsersViewModel: FilterUsersViewModel by viewModel()
     private val usersAdapter by lazy { UsersAdapter(::showPost) }
-    private var job: Job? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,11 +39,6 @@ class UsersFragment : ScopeFragment() {
         setUpAdapter()
         setupObservers()
         setListeners()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        subscribeToUsersState()
     }
 
     private fun setListeners() {
@@ -98,24 +88,24 @@ class UsersFragment : ScopeFragment() {
         }
     }
 
-    private fun subscribeToUsersState() {
-        job = viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            usersViewModel.usersFlow.collect(::handleUsersState)
-        }
-    }
-
     private fun setupObservers() {
         usersViewModel.localUserState.observe(viewLifecycleOwner) {
             when (it) {
                 LocalUsersState.EmptyUsers -> {
                     usersViewModel.getUsers()
                 }
-                is LocalUsersState.SuccessUsers -> usersAdapter.itemsUsers = it.users
+                is LocalUsersState.SuccessUsers -> {
+                    usersAdapter.itemsUsers = it.users
+                }
             }
+        }
+        usersViewModel.usersState.observe(viewLifecycleOwner) {
+            handleUsersState(it)
         }
     }
 
     private fun handleUsersState(usersState: UsersState) {
+        binding.scvFindUser.setQuery(String(), false)
         when (usersState) {
             UsersState.HideLoading -> binding.pgbUsers.visibility = View.GONE
             UsersState.Loading -> {
@@ -146,10 +136,5 @@ class UsersFragment : ScopeFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onPause() {
-        super.onPause()
-        job?.cancel()
     }
 }
