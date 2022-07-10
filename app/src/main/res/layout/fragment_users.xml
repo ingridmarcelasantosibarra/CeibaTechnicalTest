@@ -26,40 +26,29 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cnlInfoUsers"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/scvFindUser"
+        android:layout_width="0dp"
+        android:visibility="visible"
+        android:layout_height="wrap_content"
+        app:iconifiedByDefault="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/apbUsers"
+        app:queryHint="@string/title_find_user" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvUsers"
+        android:visibility="visible"
         android:layout_width="@dimen/size_0dp"
         android:layout_height="@dimen/size_0dp"
-        android:visibility="visible"
+        android:layout_marginTop="@dimen/size_16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/apbUsers">
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/scvFindUser"
-            app:iconifiedByDefault="false"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:queryHint="@string/title_find_user" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcvUsers"
-            android:layout_width="@dimen/size_0dp"
-            android:layout_height="@dimen/size_0dp"
-            android:layout_marginTop="@dimen/size_16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scvFindUser"
-            tools:itemCount="5"
-            tools:listitem="@layout/item_user" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        app:layout_constraintTop_toBottomOf="@+id/scvFindUser"
+        tools:itemCount="5"
+        tools:listitem="@layout/item_user" />
 
     <ProgressBar
         android:id="@+id/pgbUsers"
@@ -74,6 +63,12 @@
     <include
         android:id="@+id/incEmptyList"
         layout="@layout/layout_empty_list"
+        android:layout_width="@dimen/size_0dp"
+        android:layout_height="@dimen/size_0dp"
+        app:layout_constraintTop_toBottomOf="@+id/scvFindUser"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

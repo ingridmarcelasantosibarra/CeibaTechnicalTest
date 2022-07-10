@@ -17,6 +17,7 @@ import com.ingridsantos.ceibatechnicaltest.domain.repositories.PostsUserReposito
 import com.ingridsantos.ceibatechnicaltest.domain.repositories.UsersRepository
 import com.ingridsantos.ceibatechnicaltest.domain.repositories.local.LocalUsersRepository
 import com.ingridsantos.ceibatechnicaltest.domain.repositories.local.UserRepository
+import com.ingridsantos.ceibatechnicaltest.domain.usecases.FilterUsersUC
 import com.ingridsantos.ceibatechnicaltest.domain.usecases.LocalUserUC
 import com.ingridsantos.ceibatechnicaltest.domain.usecases.LocalUsersUC
 import com.ingridsantos.ceibatechnicaltest.domain.usecases.PostsUC
@@ -24,6 +25,7 @@ import com.ingridsantos.ceibatechnicaltest.domain.usecases.UsersUC
 import com.ingridsantos.ceibatechnicaltest.network.RetrofitClient
 import com.ingridsantos.ceibatechnicaltest.presentation.users.fragment.PostsFragment
 import com.ingridsantos.ceibatechnicaltest.presentation.users.fragment.UsersFragment
+import com.ingridsantos.ceibatechnicaltest.presentation.users.viewmodel.FilterUsersViewModel
 import com.ingridsantos.ceibatechnicaltest.presentation.users.viewmodel.PostsViewModel
 import com.ingridsantos.ceibatechnicaltest.presentation.users.viewmodel.UsersViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -38,6 +40,12 @@ val usersModule = module {
             )
         }
 
+        viewModel {
+            FilterUsersViewModel(
+                filterUsersUC = get()
+            )
+        }
+
         scoped {
             UsersUC(
                 userRepository = get()
@@ -46,6 +54,10 @@ val usersModule = module {
 
         scoped {
             LocalUsersUC(get())
+        }
+
+        scoped {
+            FilterUsersUC()
         }
 
         scoped<UsersRepository> {

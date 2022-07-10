@@ -11,8 +11,24 @@ import com.ingridsantos.ceibatechnicaltest.domain.entities.User
 typealias showPosts = ((Int) -> Unit)
 
 class UsersAdapter(
- private val showPosts: showPosts
-) : ListAdapter<User, UsersAdapter.ViewHolder>(UserDiffCallback()) {
+    private val showPosts: showPosts
+) : RecyclerView.Adapter<UsersAdapter.ViewHolder>() {
+
+    var listFilter: List<User> = emptyList()
+        private set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
+
+    var itemsUsers: List<User> = mutableListOf()
+        set(value) {
+            field = value
+            listFilter = value
+        }
+
+    fun filterQuery(orders: List<User>) {
+        listFilter = orders
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemUserBinding.inflate(
@@ -24,14 +40,15 @@ class UsersAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position), showPosts)
+        holder.bind(showPosts, listFilter)
     }
 
-    class ViewHolder(
+    open class ViewHolder(
         private val binding: ItemUserBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: User, showPosts: showPosts) {
+        fun bind(showPosts: showPosts, list: List<User>) {
+            val item = list[adapterPosition]
             binding.apply {
                 txvEmail.text = item.email
                 txvPhone.text = item.phone
@@ -42,16 +59,8 @@ class UsersAdapter(
             }
         }
     }
-}
 
-private class UserDiffCallback : DiffUtil.ItemCallback<User>() {
-    override fun areItemsTheSame(
-        oldItem: User,
-        newItem: User
-    ) = oldItem.id == newItem.id
-
-    override fun areContentsTheSame(
-        oldItem: User,
-        newItem: User
-    ) = oldItem == newItem
+    override fun getItemCount(): Int {
+        return listFilter.size
+    }
 }

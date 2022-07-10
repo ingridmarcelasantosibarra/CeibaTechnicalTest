@@ -4,14 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ingridsantos.ceibatechnicaltest.databinding.FragmentUsersBinding
+import com.ingridsantos.ceibatechnicaltest.domain.entities.User
 import com.ingridsantos.ceibatechnicaltest.presentation.users.adapter.UsersAdapter
 import com.ingridsantos.ceibatechnicaltest.presentation.users.state.LocalUsersState
 import com.ingridsantos.ceibatechnicaltest.presentation.users.state.UsersState
+import com.ingridsantos.ceibatechnicaltest.presentation.users.viewmodel.FilterUsersViewModel
 import com.ingridsantos.ceibatechnicaltest.presentation.users.viewmodel.UsersViewModel
+import kotlinx.android.synthetic.main.fragment_users.*
 import kotlinx.coroutines.Job
 import org.koin.androidx.scope.ScopeFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -21,6 +25,7 @@ class UsersFragment : ScopeFragment() {
     private var _binding: FragmentUsersBinding? = null
     private val binding get() = _binding!!
     private val usersViewModel: UsersViewModel by viewModel()
+    private val filterUsersViewModel: FilterUsersViewModel by viewModel()
     private val usersAdapter by lazy { UsersAdapter(::showPost) }
     private var job: Job? = null
 
@@ -38,11 +43,52 @@ class UsersFragment : ScopeFragment() {
         usersViewModel.getLocalUsers()
         setUpAdapter()
         setupObservers()
+        setListeners()
     }
 
     override fun onResume() {
         super.onResume()
         subscribeToUsersState()
+    }
+
+    private fun setListeners() {
+        binding.scvFindUser.setOnQueryTextListener(
+            object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    query?.let {
+                        val users = filterUsersViewModel.getFilterReference(
+                            filter = it,
+                            users = usersAdapter.itemsUsers
+                        )
+                        showUsersFilter(users)
+                    }
+
+                    return true
+                }
+                override fun onQueryTextChange(query: String?): Boolean {
+                    query?.let {
+                        val users = filterUsersViewModel.getFilterReference(
+                            filter = it,
+                            users = usersAdapter.itemsUsers
+                        )
+                        showUsersFilter(users)
+                    }
+
+                    return true
+                }
+            }
+        )
+    }
+
+    private fun showUsersFilter(users: List<User>) {
+        if (users.isNotEmpty()) {
+            binding.incEmptyList.root.visibility = View.GONE
+            binding.rcvUsers.visibility = View.VISIBLE
+            usersAdapter.filterQuery(users)
+        } else {
+            binding.rcvUsers.visibility = View.GONE
+            binding.incEmptyList.root.visibility = View.VISIBLE
+        }
     }
 
     private fun setUpAdapter() {
@@ -64,7 +110,7 @@ class UsersFragment : ScopeFragment() {
                 LocalUsersState.EmptyUsers -> {
                     usersViewModel.getUsers()
                 }
-                is LocalUsersState.SuccessUsers -> usersAdapter.submitList(it.users)
+                is LocalUsersState.SuccessUsers -> usersAdapter.itemsUsers = it.users
             }
         }
     }
@@ -78,13 +124,13 @@ class UsersFragment : ScopeFragment() {
             }
             is UsersState.Success -> {
                 binding.incEmptyList.root.visibility = View.GONE
-                usersAdapter.submitList(usersState.users)
+                usersAdapter.itemsUsers = usersState.users
             }
             is UsersState.Error -> {
                 binding.incEmptyList.root.visibility = View.GONE
             }
             is UsersState.EmptyUsers -> {
-                binding.cnlInfoUsers.visibility = View.GONE
+                binding.rcvUsers.visibility = View.GONE
                 binding.incEmptyList.root.visibility = View.VISIBLE
             }
         }
