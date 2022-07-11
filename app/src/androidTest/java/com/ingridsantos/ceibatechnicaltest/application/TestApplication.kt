@@ -1,9 +1,10 @@
 package com.ingridsantos.ceibatechnicaltest.application
 
 import android.app.Application
-import com.ingridsantos.ceibatechnicaltest.presentation.di.localStorageModule
-import com.ingridsantos.ceibatechnicaltest.presentation.di.postsModule
-import com.ingridsantos.ceibatechnicaltest.presentation.di.usersModule
+import com.ingridsantos.ceibatechnicaltest.di.localStorageTestModule
+import com.ingridsantos.ceibatechnicaltest.di.networkTestModule
+import com.ingridsantos.ceibatechnicaltest.di.postsTestModule
+import com.ingridsantos.ceibatechnicaltest.di.usersTestModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -14,9 +15,10 @@ class TestApplication : Application() {
             androidContext(this@TestApplication)
             modules(
                 listOf(
-                    localStorageModule,
-                    usersModule,
-                    postsModule
+                    networkTestModule,
+                    localStorageTestModule,
+                    usersTestModule,
+                    postsTestModule
                 )
             )
         }

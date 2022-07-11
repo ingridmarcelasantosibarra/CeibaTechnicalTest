@@ -1,11 +1,13 @@
 package com.ingridsantos.ceibatechnicaltest.presentation.users.fragment
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ingridsantos.ceibatechnicaltest.R
 import com.ingridsantos.ceibatechnicaltest.databinding.FragmentPostsBinding
 import com.ingridsantos.ceibatechnicaltest.presentation.users.adapter.PostAdapter
 import com.ingridsantos.ceibatechnicaltest.presentation.users.state.InfoUserState
@@ -59,6 +61,13 @@ class PostsFragment : ScopeFragment() {
                 postsViewModel.getUser(userId)
             }
             is PostsState.Error -> {
+                val builder = AlertDialog.Builder(context)
+                builder.setCancelable(false)
+                builder.setMessage(postState.message)
+                builder.setPositiveButton(getString(R.string.btn_ok)) { dialog, _ ->
+                    dialog.cancel()
+                }
+                builder.create().show()
             }
         }
     }

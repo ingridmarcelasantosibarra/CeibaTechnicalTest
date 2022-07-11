@@ -1,5 +1,6 @@
 package com.ingridsantos.ceibatechnicaltest.presentation.users.fragment
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -118,6 +119,13 @@ class UsersFragment : ScopeFragment() {
             }
             is UsersState.Error -> {
                 binding.incEmptyList.root.visibility = View.GONE
+                val builder = AlertDialog.Builder(context)
+                builder.setCancelable(false)
+                builder.setMessage(usersState.message)
+                builder.setPositiveButton("Aceptar") { dialog, _ ->
+                    dialog.cancel()
+                }
+                builder.create().show()
             }
             is UsersState.EmptyUsers -> {
                 binding.rcvUsers.visibility = View.GONE
