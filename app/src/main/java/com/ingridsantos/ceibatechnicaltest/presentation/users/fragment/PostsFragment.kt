@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ingridsantos.ceibatechnicaltest.databinding.FragmentPostsBinding
@@ -41,24 +40,13 @@ class PostsFragment : ScopeFragment() {
         }
         postsViewModel.getPosts(userId)
         setUpAdapter()
-        observerInfoUser()
+        initObservers()
         setListeners()
     }
 
     private fun setListeners() {
         binding.tbPosts.setNavigationOnClickListener {
             findNavController().navigateUp()
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        subscribeToPostState()
-    }
-
-    private fun subscribeToPostState() {
-        job = viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            postsViewModel.postsFlow.collect(::handlePostState)
         }
     }
 
@@ -75,7 +63,7 @@ class PostsFragment : ScopeFragment() {
         }
     }
 
-    private fun observerInfoUser() {
+    private fun initObservers() {
         postsViewModel.infoUserState.observe(viewLifecycleOwner) {
             if (it is InfoUserState.SuccessUser) {
                 with(binding) {
@@ -84,6 +72,9 @@ class PostsFragment : ScopeFragment() {
                     txvUsernamePost.text = it.user.username
                 }
             }
+        }
+        postsViewModel.postsState.observe(viewLifecycleOwner) {
+            handlePostState(it)
         }
     }
     private fun setUpAdapter() {

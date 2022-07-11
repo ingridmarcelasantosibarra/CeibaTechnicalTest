@@ -6,10 +6,10 @@ class FilterUsersUC {
 
     operator fun invoke(
         filter: CharSequence,
-        fastOrders: List<User>?
+        users: List<User>?
     ): List<User> {
-        return if (fastOrders.isNullOrEmpty().not()) {
-            fastOrders!!.filter {
+        return if (users.isNullOrEmpty().not()) {
+            users!!.filter {
                 it.username.startsWith(filter, true)
             }
         } else {

@@ -4,13 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ingridsantos.ceibatechnicaltest.domain.usecases.PostsUC
 import com.ingridsantos.ceibatechnicaltest.domain.usecases.LocalUserUC
+import com.ingridsantos.ceibatechnicaltest.domain.usecases.PostsUC
 import com.ingridsantos.ceibatechnicaltest.presentation.users.state.InfoUserState
 import com.ingridsantos.ceibatechnicaltest.presentation.users.state.PostsState
 import com.ingridsantos.ceibatechnicaltest.utils.handleViewModelExceptions
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
@@ -20,10 +18,9 @@ class PostsViewModel(
     private val localUserUC: LocalUserUC
 ) : ViewModel() {
 
-    private val _postsFlow =
-        MutableStateFlow<PostsState>(PostsState.HideLoading)
-    val postsFlow: StateFlow<PostsState>
-        get() = _postsFlow
+    private val _postsLiveData = MutableLiveData<PostsState>()
+    val postsState: LiveData<PostsState>
+        get() = _postsLiveData
 
     private val _infoUserState = MutableLiveData<InfoUserState>()
     val infoUserState: LiveData<InfoUserState>
@@ -33,16 +30,16 @@ class PostsViewModel(
         viewModelScope.launch {
             postsUC.invoke(userId)
                 .onStart {
-                    _postsFlow.value = PostsState.Loading
+                    _postsLiveData.value = PostsState.Loading
                 }
                 .onCompletion {
-                    _postsFlow.value = PostsState.HideLoading
+                    _postsLiveData.value = PostsState.HideLoading
                 }
                 .handleViewModelExceptions { domainException ->
-                    _postsFlow.value = PostsState.Error(domainException.message)
+                    _postsLiveData.value = PostsState.Error(domainException.message)
                 }
                 .collect {
-                    _postsFlow.value = PostsState.Success(it)
+                    _postsLiveData.value = PostsState.Success(it)
                 }
         }
     }

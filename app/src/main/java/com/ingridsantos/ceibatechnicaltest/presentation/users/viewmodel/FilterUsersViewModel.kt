@@ -14,7 +14,7 @@ class FilterUsersViewModel(
     ): List<User> {
         return filterUsersUC.invoke(
             filter = filter,
-            fastOrders = users
+            users = users
         )
     }
 }
