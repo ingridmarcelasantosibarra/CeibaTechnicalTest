@@ -12,11 +12,15 @@ import com.ingridsantos.ceibatechnicaltest.R
 import com.ingridsantos.ceibatechnicaltest.base.BaseUITest
 import com.ingridsantos.ceibatechnicaltest.data.local.TechnicalTestRoomDatabase
 import com.ingridsantos.ceibatechnicaltest.data.local.dao.UserDao
+import com.ingridsantos.ceibatechnicaltest.data.local.entities.LocalUser
 import com.ingridsantos.ceibatechnicaltest.idlresource.waitUntilViewIsNotDisplayed
 import com.ingridsantos.ceibatechnicaltest.network.FILE_SUCCESS_GET_POSTS
 import com.ingridsantos.ceibatechnicaltest.network.mockResponse
 import com.ingridsantos.ceibatechnicaltest.util.checkViewWithIdAndTextIsDisplayed
 import com.ingridsantos.ceibatechnicaltest.util.checkViewWithTextIsDisplayedAtPosition
+import io.mockk.every
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.QueueDispatcher
 import org.junit.Before
@@ -52,17 +56,20 @@ class PostsFragmentTest : BaseUITest(dispatcher = QueueDispatcher()) {
 
     @Before
     fun setup() {
-        // prepareData()
+        prepareData()
         launchFragment()
     }
 
-    /*private fun prepareData() {
-        val user = LocalUser (
-
+    private fun prepareData() {
+        val user = LocalUser(
+            id = 1,
+            username = "ingrid",
+            phone = "123456",
+            email = "marcesntos@gmail.com"
         )
         every { technicalTestRoomDatabase.userDao() } returns userDao
-        every { userDao.getInfoUser(1) }
-    }*/
+        every { userDao.getInfoUser(1) } returns flowOf(user)
+    }
 
     @Test
     @SmallTest
