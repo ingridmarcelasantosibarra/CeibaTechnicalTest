@@ -7,6 +7,9 @@
         </trust-anchors>
     </debug-overrides>
     <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">jsonplaceholder.typicode.com</domain>
+    </domain-config>
+    <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">localhost</domain>
     </domain-config>
 </network-security-config>
