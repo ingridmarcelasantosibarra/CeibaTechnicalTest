@@ -8,6 +8,7 @@ import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.filters.SmallTest
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.ingridsantos.ceibatechnicaltest.R
 import com.ingridsantos.ceibatechnicaltest.base.BaseUITest
 import com.ingridsantos.ceibatechnicaltest.data.local.TechnicalTestRoomDatabase
@@ -23,9 +24,11 @@ import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.QueueDispatcher
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.koin.core.component.inject
 import java.net.HttpURLConnection
 
+@RunWith(AndroidJUnit4ClassRunner::class)
 class PostsFragmentTest : BaseUITest(dispatcher = QueueDispatcher()) {
 
     private val technicalTestRoomDatabase: TechnicalTestRoomDatabase by inject()
