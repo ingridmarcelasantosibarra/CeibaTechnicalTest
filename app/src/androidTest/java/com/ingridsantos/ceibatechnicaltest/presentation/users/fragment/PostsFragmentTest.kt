@@ -18,9 +18,7 @@ import com.ingridsantos.ceibatechnicaltest.network.FILE_SUCCESS_GET_POSTS
 import com.ingridsantos.ceibatechnicaltest.network.mockResponse
 import com.ingridsantos.ceibatechnicaltest.util.checkViewWithTextIsDisplayedAtPosition
 import io.mockk.every
-import io.mockk.mockk
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.QueueDispatcher
 import org.junit.Before
