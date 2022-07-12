@@ -1,13 +1,6 @@
-package com.ingridsantos.ceibatechnicaltest.domain
+package com.ingridsantos.ceibatechnicaltest.domain.exceptions
 
 import com.google.gson.JsonSyntaxException
-import com.ingridsantos.ceibatechnicaltest.domain.exceptions.DomainException
-import com.ingridsantos.ceibatechnicaltest.domain.exceptions.InternalErrorException
-import com.ingridsantos.ceibatechnicaltest.domain.exceptions.NoConnectivityDomainException
-import com.ingridsantos.ceibatechnicaltest.domain.exceptions.NoConnectivityException
-import com.ingridsantos.ceibatechnicaltest.domain.exceptions.ParseException
-import com.ingridsantos.ceibatechnicaltest.domain.exceptions.TimeOutException
-import com.ingridsantos.ceibatechnicaltest.domain.exceptions.UnknownError
 import com.squareup.moshi.JsonDataException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
